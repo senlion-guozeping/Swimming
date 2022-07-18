@@ -4,6 +4,7 @@
 #include <QSettings>
 #include <QFileInfo>
 #include <QTextCodec>
+#include <QCoreApplication>
 
 class BaseSetting: public QSettings
 {

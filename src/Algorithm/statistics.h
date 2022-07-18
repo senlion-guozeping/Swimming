@@ -3,6 +3,7 @@
 
 #include <QStringList>
 #include <algorithm>
+#include <math.h>
 
 class Statistics
 {

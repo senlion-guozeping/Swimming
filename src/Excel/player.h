@@ -34,7 +34,6 @@ public:
 private:
     QXlsx::Format m_cellFormat;
     QXlsx::Format m_headerFormat;
-    QXlsx::Cell m_cell;
     bool _saveModel(QString filepath, QXlsx::Document& xlsx, QStandardItemModel* model);
     void _setCellFormat();
     void _setHeaderFormat();

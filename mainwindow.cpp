@@ -9,7 +9,7 @@
 
 #include <QDebug>
 
-using namespace QXlsx;
+//using namespace QXlsx;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

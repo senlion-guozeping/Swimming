@@ -20,7 +20,8 @@ void BaseSetting::_userSettings()
 
 void BaseSetting::readSettings()
 {
-     m_userSettings = new QSettings("/Users/guozeping/Downloads/Swimming/config/Basic.ini",QSettings::IniFormat);
+     QString fileName = QCoreApplication::applicationDirPath() + "/config/Basic.ini";
+     m_userSettings = new QSettings(fileName,QSettings::IniFormat);
      m_userSettings->setIniCodec(QTextCodec::codecForName("UTF-8"));
      m_userSettings->beginGroup("Table");
      QString size = m_userSettings->value("headerdata","null").toString();

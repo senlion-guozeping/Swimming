@@ -18,6 +18,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+#-----------------------------------------------------------------------------------------
+# Libraries
+#-----------------------------------------------------------------------------------------
+
+include(libs/Libraries.pri)
+
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
@@ -29,6 +35,7 @@ SOURCES += \
     src/Common/window.cpp \
     src/DB/BaseDB.cpp \
     src/Excel/player.cpp \
+    src/Excel/save.cpp \
     src/Settings/BaseSetting.cpp \
     src/Settings/TableSetting.cpp \
     src/Settings/WindowSetting.cpp \
@@ -50,6 +57,7 @@ HEADERS += \
     src/Common/window.h \
     src/DB/BaseDB.h \
     src/Excel/player.h \
+    src/Excel/save.h \
     src/Setting/base.h \
     src/Settings/BaseSetting.h \
     src/Settings/TableSetting.h \
@@ -78,4 +86,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     res.qrc
 
-include(./QXlsx/QXlsx.pri)
+#include(./QXlsx/QXlsx.pri)
+
+DISTFILES += \
+    libs/xlsx/QXlsx.pri

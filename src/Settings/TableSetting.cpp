@@ -1,11 +1,12 @@
 #include "TableSetting.h"
 #include "src/Settings/BaseSetting.h"
-
+#include <QDebug>
 static TableSetting* INSTANCE=nullptr;
 
 TableSetting::TableSetting()
 {
-    m_tableSetting = new QSettings("/Users/guozeping/Downloads/Swimming/config/Basic.ini",QSettings::IniFormat);
+    QString fileName = QCoreApplication::applicationDirPath() + "/config/Basic.ini";
+    m_tableSetting = new QSettings(fileName,QSettings::IniFormat);
     m_tableSetting->setIniCodec(QTextCodec::codecForName("UTF-8"));
 }
 
