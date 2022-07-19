@@ -32,7 +32,7 @@ private:
     int getTabCurIndex();
     int getTabCount();
     QWidget* getTabCurWdiget();
-    QTabWidget* getTabWidget();
+    QTabWidget* tabWidget();
     void setToolBarStatus();
 
 

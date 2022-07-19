@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
     // 初始化模块管理类
     auto moduleManager = new ModuleManager();
     moduleManager->initModuleInstance();
+    //
+    qApp->setApplicationName("Swimming");
     qInstallMessageHandler(myMessageOutput);
     w.show();
     return a.exec();

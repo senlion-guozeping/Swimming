@@ -71,9 +71,14 @@ bool Player::saveXlsx(QStandardItemModel *itemModel)
     QXlsx::Document xlsx;
     QString filepath = QFileDialog::getSaveFileName(NULL, "save xlsx file", "", "xlsx(*.xlsx)");
     if (filepath != "") {
-        this->_saveModel(filepath,xlsx,itemModel);
+        this->_saveModel(xlsx,itemModel);
     }
-    return true;
+    bool isSave = xlsx.saveAs(filepath);
+    if (isSave){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool Player::saveFilterXlsx(QStandardItemModel *theResModel, QStandardItemModel *theStatisticalModel, QStandardItemModel *theClusterModel)
@@ -83,24 +88,29 @@ bool Player::saveFilterXlsx(QStandardItemModel *theResModel, QStandardItemModel 
     if (filepath != "") {
         if (!xlsx.selectSheet("Sheet1")) {
             xlsx.addSheet("Sheet1");
-            this->_saveModel(filepath,xlsx,theResModel);
+            this->_saveModel(xlsx,theResModel);
         } else {
-            this->_saveModel(filepath,xlsx,theResModel);
+            this->_saveModel(xlsx,theResModel);
         }
         if(!xlsx.selectSheet("Sheet2")){
             xlsx.addSheet("Sheet2");
-            this->_saveModel(filepath,xlsx,theStatisticalModel);
+            this->_saveModel(xlsx,theStatisticalModel);
         } else {
-            this->_saveModel(filepath,xlsx,theStatisticalModel);
+            this->_saveModel(xlsx,theStatisticalModel);
         }
         if (!xlsx.selectSheet("Sheet3")) {
             xlsx.addSheet("Sheet3");
-            this->_saveModel(filepath,xlsx, theClusterModel);
+            this->_saveModel(xlsx, theClusterModel);
         } else {
-            this->_saveModel(filepath,xlsx, theClusterModel);
+            this->_saveModel(xlsx, theClusterModel);
         }
     }
-    return true;
+    bool isSave = xlsx.saveAs(filepath);
+    if (isSave) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool Player::exportTemplate(QStringList sl_headerData,QPoint &pos)
@@ -124,7 +134,7 @@ bool Player::exportTemplate(QStringList sl_headerData,QPoint &pos)
     }
 }
 
-bool Player::_saveModel(QString filepath, QXlsx::Document& xlsx, QStandardItemModel *model)
+void Player::_saveModel(QXlsx::Document& xlsx, QStandardItemModel *model)
 {
     int columnCount = model->columnCount();
     int rowCount = model->rowCount();
@@ -142,8 +152,6 @@ bool Player::_saveModel(QString filepath, QXlsx::Document& xlsx, QStandardItemMo
             xlsx.write(i + 1, j + 1, cellValue, _CellFormat());
         }
     }
-    xlsx.saveAs(filepath);
-    return true;
 }
 
 void Player::_setCellFormat()

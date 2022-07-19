@@ -9,8 +9,6 @@
 
 #include <QDebug>
 
-//using namespace QXlsx;
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -72,12 +70,12 @@ void MainWindow::on_actNewDoc_triggered()
 {
     auto tableSetting = TableSetting::getInstance();
     QStringList defaultTableHeaderData = tableSetting->getTableHeaderData();
-    qDebug() << defaultTableHeaderData;
     TableModel* tablemodel = new TableModel(0,defaultTableHeaderData.length());
     for (int i = 0; i < defaultTableHeaderData.length(); ++i){
         tablemodel->setHeaderModel(i,defaultTableHeaderData.at(i));
     }
     this->setTabPage(tablemodel);
+    tabWidget()->setCurrentIndex(tabWidget()->count() + 1);
 }
 
 void MainWindow::on_actDataFilter_triggered()
@@ -135,7 +133,7 @@ void MainWindow::on_actComputed_triggered()
     }
 }
 
-QTabWidget* MainWindow::getTabWidget()
+QTabWidget* MainWindow::tabWidget()
 {
     return ui->tabWidget;
 }
@@ -143,6 +141,7 @@ QTabWidget* MainWindow::getTabWidget()
 void MainWindow::setTabPage(TableModel* tablemodel)
 {
     ui->tabWidget->addTab(tablemodel, QString::number(getTabCount() + 1));
+    tabWidget()->setCurrentIndex( tabWidget()->indexOf(tablemodel));
     m_tableModelManager->insertModel(tablemodel);
 }
 
@@ -179,7 +178,7 @@ void MainWindow::on_actdelTabPage(int index)
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-
+    Q_UNUSED(event);
     int modelCount = m_tableModelManager->getTableModelCount();
     if (modelCount != 0) {
         QString title = "是否保存表格数据";
@@ -187,8 +186,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
         auto warnMessage = WarnMessage::getInstance();
         int ret = warnMessage->sendMessage(title,text);
         if (ret == QMessageBox::Yes){
+            this->show();
         } else if (ret == QMessageBox::No){
-
+            this->show();
         } else if (ret == QMessageBox::Cancel){
         }
     }
@@ -205,8 +205,6 @@ void MainWindow::setToolBarStatus()
     ui->actComputed->setEnabled(isEnabled);
     ui->actRowDel->setEnabled(isEnabled);
 }
-
-
 
 void MainWindow::on_actAbout_triggered()
 {

@@ -5,7 +5,7 @@ static TableSetting* INSTANCE=nullptr;
 
 TableSetting::TableSetting()
 {
-    QString fileName = QCoreApplication::applicationDirPath() + "/config/Basic.ini";
+    QString fileName = QCoreApplication::applicationDirPath() + "/Basic.ini";
     m_tableSetting = new QSettings(fileName,QSettings::IniFormat);
     m_tableSetting->setIniCodec(QTextCodec::codecForName("UTF-8"));
 }
